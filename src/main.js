@@ -1,1 +1,4 @@
-console.log("Hello world");
+import Game from "./game.js";
+
+const game = new Game();
+game.initGame();
