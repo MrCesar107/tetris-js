@@ -6,10 +6,10 @@ export default class Game {
     this.ctx = this.canvas.getContext("2d");
     this.pieces = [
       new Piece(0, 0, 1, "#ff0000"),
-      new Piece(100, 100, 1, "#00ff00"),
-      new Piece(200, 200, 1, "#0000ff"),
-      new Piece(300, 300, 1, "#f2ce18"),
-      new Piece(400, 400, 1, "#682bed"),
+      new Piece(100, 100, 2, "#00ff00"),
+      new Piece(200, 200, 3, "#0000ff"),
+      new Piece(300, 300, 4, "#f2ce18"),
+      new Piece(400, 400, 5, "#682bed"),
     ];
   }
 

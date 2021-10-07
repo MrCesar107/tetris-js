@@ -1,4 +1,4 @@
-import Block from "./block.js";
+import PieceFormGenerator from "./piece_form_generator.js";
 
 export default class Piece {
   constructor(x, y, type, color) {
@@ -10,12 +10,12 @@ export default class Piece {
   }
 
   build() {
-    this.blocks = [
-      new Block(this.x, this.y, this.color),
-      new Block(this.x, this.y + 50, this.color),
-      new Block(this.x, this.y + 100, this.color),
-      new Block(this.x, this.y + 150, this.color),
-    ];
+    this.blocks = new PieceFormGenerator(
+      this.x,
+      this.y,
+      this.type,
+      this.color
+    ).getPieceForm();
   }
 
   update(ctx) {
