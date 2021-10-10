@@ -8,6 +8,9 @@ export default class Piece {
     this.color = color;
     this.blocks = [];
     this.direction = "none";
+    this.isCollidingLeft = false;
+    this.isCollidingRight = false;
+    this.isCollidingBottom = false;
   }
 
   build() {
@@ -23,15 +26,13 @@ export default class Piece {
     this.build();
     this.checkCollisions();
     this.blocks.forEach((block) => block.update(ctx));
-    console.log(this.isColliding);
   }
 
   move(direction) {
     this.setDirection(direction);
 
-    if (this.direction === "left") this.x += -50;
-    if (this.direction === "right") this.x += 50;
-    if (this.direction === "none") this.stop();
+    if (this.direction === "left" && !this.isCollidingLeft) this.x += -50;
+    if (this.direction === "right" && !this.isCollidingRight) this.x += 50;
   }
 
   setDirection(direction) {
@@ -39,21 +40,17 @@ export default class Piece {
   }
 
   stop() {
-    console.log(this.x);
     this.x += 0;
     this.y = 0;
   }
 
   checkCollisions() {
     this.blocks.forEach((block) => {
-      if (block.x >= 500) {
-        this.stop();
-        this.x = 450;
-      }
-
-      if (block.x <= 0) {
-        this.stop();
-        this.x = 0;
+      if (block.x + block.width >= 500) this.isCollidingRight = true;
+      else if (block.x <= 0) this.isCollidingLeft = true;
+      else {
+        this.isCollidingLeft = false;
+        this.isCollidingRight = false;
       }
     });
   }

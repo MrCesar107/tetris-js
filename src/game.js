@@ -20,13 +20,6 @@ export default class Game {
       if (event.code == "ArrowLeft") this.pieces[0].move("left");
       if (event.code == "ArrowRight") this.pieces[0].move("right");
     });
-
-    addEventListener("keyup", (event) => {
-      this.pieces[0].move("none");
-    });
-
-    // this.pieces.forEach((piece) => piece.update(this.ctx));
-    console.log(this.pieces[0].x);
   }
 
   animate() {
