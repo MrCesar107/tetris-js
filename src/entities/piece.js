@@ -45,13 +45,16 @@ export default class Piece {
   }
 
   checkCollisions() {
-    this.blocks.forEach((block) => {
-      if (block.x + block.width >= 500) this.isCollidingRight = true;
-      else if (block.x <= 0) this.isCollidingLeft = true;
-      else {
-        this.isCollidingLeft = false;
-        this.isCollidingRight = false;
-      }
-    });
+    if (
+      this.blocks[this.blocks.length - 1].x +
+        this.blocks[this.blocks.length - 1].width >=
+      500
+    )
+      this.isCollidingRight = true;
+    else if (this.blocks[0].x <= 0) this.isCollidingLeft = true;
+    else {
+      this.isCollidingLeft = false;
+      this.isCollidingRight = false;
+    }
   }
 }

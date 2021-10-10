@@ -52,26 +52,26 @@ export default class PieceFormGenerator {
     return [
       new Block(x, y, color),
       new Block(x, y + 50, color),
-      new Block(x + 50, y + 50, color),
       new Block(x, y + 100, color),
+      new Block(x + 50, y + 50, color),
     ];
   }
 
   fifthPiece(x, y, color) {
     return [
-      new Block(x + 50, y, color),
+      new Block(x, y + 100, color),
       new Block(x + 50, y + 50, color),
       new Block(x + 50, y + 100, color),
-      new Block(x, y + 100, color),
+      new Block(x + 50, y, color),
     ];
   }
 
   sixthPiece(x, y, color) {
     return [
-      new Block(x + 50, y, color),
+      new Block(x, y + 100, color),
       new Block(x + 50, y + 50, color),
       new Block(x, y + 50, color),
-      new Block(x, y + 100, color),
+      new Block(x + 50, y, color),
     ];
   }
 
