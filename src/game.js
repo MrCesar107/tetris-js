@@ -4,18 +4,35 @@ export default class Game {
   constructor() {
     this.canvas = document.querySelector("#canvas");
     this.ctx = this.canvas.getContext("2d");
-    this.pieces = [
-      new Piece(0, 0, 1, "#ff0000"),
-      new Piece(100, 100, 2, "#00ff00"),
-      new Piece(200, 200, 3, "#0000ff"),
-      new Piece(300, 300, 4, "#f2ce18"),
-      new Piece(400, 400, 5, "#682bed"),
-    ];
+    this.pieces = [new Piece(100, 0, 1, "#ff0000")];
+    this.animationId = null;
   }
 
   initGame() {
     this.resizeCanvas();
-    this.pieces.forEach((piece) => piece.update(this.ctx));
+    this.update();
+  }
+
+  update() {
+    this.animate();
+
+    addEventListener("keydown", (event) => {
+      if (event.code == "ArrowLeft") this.pieces[0].move("left");
+      if (event.code == "ArrowRight") this.pieces[0].move("right");
+    });
+
+    addEventListener("keyup", (event) => {
+      this.pieces[0].move("none");
+    });
+
+    // this.pieces.forEach((piece) => piece.update(this.ctx));
+    console.log(this.pieces[0].x);
+  }
+
+  animate() {
+    this.animationId = requestAnimationFrame(this.animate.bind(this));
+    this.clearCanvas();
+    this.pieces[0].update(this.ctx);
   }
 
   resizeCanvas() {
@@ -26,5 +43,9 @@ export default class Game {
     }
 
     canvas.height = innerHeight;
+  }
+
+  clearCanvas() {
+    this.ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 }

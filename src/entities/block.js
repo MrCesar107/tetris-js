@@ -21,4 +21,9 @@ export default class Block {
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.closePath();
   }
+
+  move(x, y) {
+    this.x += x;
+    this.y += y;
+  }
 }
