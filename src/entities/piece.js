@@ -12,6 +12,7 @@ export default class Piece {
     this.isCollidingLeft = false;
     this.isCollidingRight = false;
     this.isCollidingBottom = false;
+    this.timer = 0;
   }
 
   build() {
@@ -24,13 +25,11 @@ export default class Piece {
   }
 
   update(ctx) {
+    if (!this.isCollidingBottom) this.timer++;
     this.build();
     this.checkCollisions();
     this.blocks.forEach((block) => block.update(ctx));
-
-    console.log(this.isCollidingLeft);
-    console.log(this.isCollidingRight);
-    console.log(this.isCollidingBottom);
+    this.moveToBottom();
   }
 
   move(direction) {
@@ -39,6 +38,13 @@ export default class Piece {
     if (this.direction === "left" && !this.isCollidingLeft) this.x += -50;
     if (this.direction === "right" && !this.isCollidingRight) this.x += 50;
     if (this.direction === "down" && !this.isCollidingBottom) this.y += 50;
+  }
+
+  moveToBottom() {
+    if (this.timer >= 60 && !this.isCollidingBottom) {
+      this.y += 50;
+      this.timer = 0;
+    }
   }
 
   setDirection(direction) {
