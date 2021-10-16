@@ -1,12 +1,13 @@
 import PieceFormGenerator from "./piece_form_generator.js";
 
 export default class Piece {
-  constructor(x, y, type, color) {
+  constructor(x, y, type, color, canvasHeight) {
     this.x = x;
     this.y = y;
     this.type = type;
     this.color = color;
     this.blocks = [];
+    this.canvasHeight = canvasHeight;
     this.direction = "none";
     this.isCollidingLeft = false;
     this.isCollidingRight = false;
@@ -26,6 +27,10 @@ export default class Piece {
     this.build();
     this.checkCollisions();
     this.blocks.forEach((block) => block.update(ctx));
+
+    console.log(this.isCollidingLeft);
+    console.log(this.isCollidingRight);
+    console.log(this.isCollidingBottom);
   }
 
   move(direction) {
@@ -33,6 +38,7 @@ export default class Piece {
 
     if (this.direction === "left" && !this.isCollidingLeft) this.x += -50;
     if (this.direction === "right" && !this.isCollidingRight) this.x += 50;
+    if (this.direction === "down" && !this.isCollidingBottom) this.y += 50;
   }
 
   setDirection(direction) {
@@ -51,10 +57,19 @@ export default class Piece {
       500
     )
       this.isCollidingRight = true;
-    else if (this.blocks[0].x <= 0) this.isCollidingLeft = true;
-    else {
-      this.isCollidingLeft = false;
-      this.isCollidingRight = false;
-    }
+    else this.isCollidingRight = false;
+
+    if (this.blocks[0].x <= 0) this.isCollidingLeft = true;
+    else this.isCollidingLeft = false;
+
+    if (
+      this.blocks[0].y + this.blocks[0].height >= this.canvasHeight - 50 ||
+      this.blocks[2].y + this.blocks[2].height >= this.canvasHeight - 50 ||
+      this.blocks[this.blocks.length - 1].y +
+        this.blocks[this.blocks.length - 1].height >=
+        this.canvasHeight - 50
+    )
+      this.isCollidingBottom = true;
+    else this.isCollidingBottom = false;
   }
 }
